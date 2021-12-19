@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,26 +10,25 @@ using Newtonsoft.Json;
 
 namespace DemoApp.Pages
 {
-    public class CreateModel : PageModel
+    public class DashboardModel : PageModel
     {
         private readonly IConfiguration _configuration;
-        public CreateModel(IConfiguration configuration)
+        public DashboardModel(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        [BindProperty]
-        public DemoApp.Models.Task Task { get; set; }
+        public List<DemoApp.Models.Task> TaskList { get; set; }
         public void OnGet()
         {
-        }
-        public ActionResult OnPost()
-        {
-            var json = JsonConvert.SerializeObject(Task);
+            TaskList = new List<DemoApp.Models.Task>();
             var client = new HttpClient();
-            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
             string path = $"{_configuration["AppSettings:BaseAPI"]}api/task";
-            var res = client.PostAsync(path, content).GetAwaiter().GetResult();
-            return RedirectToPage("Dashboard");
+            var response = client.GetAsync(path).GetAwaiter().GetResult();
+            if (response.IsSuccessStatusCode)
+            {
+                TaskList = JsonConvert.DeserializeObject<List<DemoApp.Models.Task>>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString());
+
+            }
         }
     }
 }

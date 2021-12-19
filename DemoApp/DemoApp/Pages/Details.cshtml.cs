@@ -27,7 +27,7 @@ namespace DemoApp.Pages
                     {
                         Description = Task1.FirstOrDefault().Description,
                         CreatedOn = Task1.FirstOrDefault().CreatedOn,
-                        IsDone = Task1.FirstOrDefault().IsDone,
+                        Status = Task1.FirstOrDefault().Status,
                         Id = Task1.FirstOrDefault().Id,
                     };
                 }

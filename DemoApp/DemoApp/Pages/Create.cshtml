@@ -16,20 +16,20 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <label>CreationOn</label>
-                <input asp-for="Task.CreatedOn" class="form-control" />
-                <span class="alert-danger" asp-validation-for="Task.CreatedOn"></span>
+                <label>Status</label>
+                <input asp-for="Task.Status" class="form-control" />
+                <span class="alert-danger" asp-validation-for="Task.Status"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <label>IsDependOn</label>
-                <input asp-for="Task.IsDone" class="form-control" />
-                <span class="alert-danger" asp-validation-for="Task.IsDone"></span>
+                <label>CreatedOn</label>
+                <input asp-for="Task.CreatedOn" class="form-control" />
+                <span class="alert-danger" asp-validation-for="Task.CreatedOn"></span>
             </div>
         </div>
         <br />
         <input type="submit" value="Save" class="btn btn-primary" />
-        <a class="btn btn-default" href="/Index">Cancel</a>
+        <a class="btn btn-default" href="/Dashboard">Cancel</a>
     </form>
 </div>

@@ -6,12 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace DemoApp.Pages
 {
     public class EditModel : PageModel
     {
+        private readonly IConfiguration _configuration;
+        public EditModel(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         [BindProperty]
         public DemoApp.Models.Task Task { get; set; }
 
@@ -20,7 +26,7 @@ namespace DemoApp.Pages
             if (Id != null)
             {
                 var client = new HttpClient();
-                string path = "http://localhost:7071/api/task/" + Convert.ToString(Id);
+                string path = $"{_configuration["AppSettings:BaseAPI"]}api/task/{Id}";
                 var response = client.GetAsync(path).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
                 {
@@ -29,7 +35,7 @@ namespace DemoApp.Pages
                     {
                         Description = Task1.FirstOrDefault().Description,
                         CreatedOn = Task1.FirstOrDefault().CreatedOn,
-                        IsDone = Task1.FirstOrDefault().IsDone,
+                        Status = Task1.FirstOrDefault().Status,
                         Id= Task1.FirstOrDefault().Id,
                     };
                 }
@@ -40,9 +46,9 @@ namespace DemoApp.Pages
             var json = JsonConvert.SerializeObject(Task);
             var client = new HttpClient();
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            string path = "http://localhost:7071/api/task/" + Task.Id;
+            string path = $"{_configuration["AppSettings:BaseAPI"]}api/task/{Task.Id}";
             var res = client.PutAsync(path, content).GetAwaiter().GetResult();
-            return RedirectToPage("Index");
+            return RedirectToPage("Dashboard");
         }
     }
 }
