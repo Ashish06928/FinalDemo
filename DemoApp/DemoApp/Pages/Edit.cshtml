@@ -31,7 +31,12 @@
         <div class="row">
             <div class="col-md-4">
                 <label>Status</label>
-                <input asp-for="Task.Status" class="form-control" />
+                <select asp-for="Task.Status" class="form-control">
+                    <option value="Not Started">Not Started</option>
+                    <option value="Started">Started</option>
+                    <option value="In-Progress">In-Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
                 <span class="alert-danger" asp-validation-for="Task.Status"></span>
             </div>
         </div>

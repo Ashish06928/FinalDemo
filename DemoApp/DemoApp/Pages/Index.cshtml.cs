@@ -39,7 +39,19 @@ namespace DemoApp.Pages
             var res = client.PostAsync(path, content).GetAwaiter().GetResult();
             if(res.IsSuccessStatusCode)
             {
-                return RedirectToPage("Dashboard");
+                var user = JsonConvert.DeserializeObject<List<DemoApp.Models.User>>(res.Content.ReadAsStringAsync().GetAwaiter().GetResult().ToString());
+                if(user.Count>0)
+                {
+                    return RedirectToPage("Dashboard");
+                }
+                else
+                {
+                    UserLogin.Message = "User Name and Password is not correct.";
+                    UserLogin.UserName = "";
+                    UserLogin.Password = "";
+                    return RedirectToPage("Index", UserLogin);
+                }
+                
             }
             else
             {

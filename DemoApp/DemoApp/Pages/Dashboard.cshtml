@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayName("Status")
             </th>
+            <th>
+                @Html.DisplayName("Create On")
+            </th>
             <th>Edit | Details | Delete</th>
         </tr>
     </thead>
@@ -26,22 +29,25 @@
         {
             @foreach (var item in Model.TaskList)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
             }
         }
     </tbody>
