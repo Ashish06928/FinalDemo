@@ -16,7 +16,7 @@ namespace GenricAPI
     {
         [FunctionName("Login")]
         public static async Task<IActionResult> Login(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -48,7 +48,7 @@ namespace GenricAPI
 
         [FunctionName("Registration")]
         public static async Task<IActionResult> Registration(
-           [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
            ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
