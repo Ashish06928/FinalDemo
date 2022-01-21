@@ -63,7 +63,7 @@ namespace DemoApp.Pages
         {
             try
             {
-                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=learninglwp123;AccountKey=DUGg12nRVQKC0vZzbjb1efEFv3BMGvf4Q6oAOERDPIMDvXM7eJHt52TgkfMHA1hvgdvO54GHYIm9ZC6+TE6Eig==;EndpointSuffix=core.windows.net");
+                CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_configuration["AppSettings:StorageAccount"]);
                 CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
                 string strContainerName = "uploads";
                 CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
